@@ -11,6 +11,7 @@
     text-align: right;
     font-size: xx-large;
     height:70px;
+    overflow: auto; 
 }
 
 .max-wid{
