@@ -1,11 +1,11 @@
 let acBtn = document.querySelector("#clear-btn")
 
-let input = '';
+let input = "";
 
 acBtn.addEventListener("click", () => {
     console.log("AC")
-    document.getElementById("screen").innerHTML = '';
-    input = ''
+    document.getElementById("screen").innerHTML = "0";
+    input = ""
 })
 
 function refreshScreen() {
@@ -13,8 +13,6 @@ function refreshScreen() {
 }
 
 function getInput(str) {
-
-
     input += str
     refreshScreen()
 
