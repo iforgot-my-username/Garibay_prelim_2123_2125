@@ -1,6 +1,8 @@
 let acBtn = document.querySelector("#clear-btn")
 
 let input = "";
+let operator = '';
+let firstNumber = '';
 
 acBtn.addEventListener("click", () => {
     console.log("AC")
@@ -15,8 +17,16 @@ function refreshScreen() {
 function getInput(str) {
     input += str
     refreshScreen()
-
 }
+
+function getOperator(str) {
+    operator = str
+    firstNumber = input;
+    input = '';
+    refreshScreen()
+}
+
+
 
 
 
