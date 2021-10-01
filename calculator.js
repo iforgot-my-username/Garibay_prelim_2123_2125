@@ -7,6 +7,15 @@ const pageLoaded = () => {
     const equalBtn = document.querySelector("#equal-btn");
 
 
+    const displayRandomWord = () => {
+        const words = ["Hello", "Hi", "Yo", "Howdy", "Hey", "Ciao"];
+        const randomIndex = Math.trunc(Math.random() * words.length);
+        displayOnScreen(words[randomIndex]);
+    }
+
+
+    helloBtn.onclick = displayRandomWord;
+
 
     const numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
     const operators = ["plus", "minus", "times", "divide"]
@@ -29,6 +38,7 @@ const pageLoaded = () => {
     function displayOnScreen(something) {
         document.getElementById("screen").innerHTML = something;
     }
+
 
     acBtn.addEventListener("click", () => {
         console.log("AC");

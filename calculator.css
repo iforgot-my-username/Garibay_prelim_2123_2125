@@ -10,7 +10,7 @@
     border-color: darkgray;
     text-align: right;
     font-size: xx-large;
-    height:70px;
+    font-family: "Georgia", serif;
     overflow: auto; 
 }
 
