@@ -1,4 +1,4 @@
-let acBtn = document.querySelector("#clear-btn")
+let acBtn = document.querySelector("#clear-btn");
 let dotBtn = document.querySelector("#dot-btn");
 let zeroBtn = document.querySelector("#zero-btn");
 
@@ -9,13 +9,6 @@ let firstNumber = "";
 let computed = false;
 
 
-function clear() {
-    input = "";
-    operator = "";
-    firstNumber = "";
-    computed = false;
-}
-
 function displayOnScreen(something) {
     document.getElementById("screen").innerHTML = something;
 }
@@ -23,25 +16,36 @@ function displayOnScreen(something) {
 acBtn.addEventListener("click", () => {
     console.log("AC");
     displayOnScreen("0");
-    clear();
+    input = "";
+    operator = "";
+    firstNumber = "";
+    computed = false;
 })
+
 
 function refreshScreen() {
     displayOnScreen(input);
 }
 
 function getInput(str) {
-    input += str;
-    refreshScreen();
+
+    if (computed && firstNumber.length > 0) {
+        displayOnScreen("");
+        firstNumber = operator.length <= 0 ? "" : input;
+        computed = false;
+        input = str;
+    } else {
+        input += str;
+    }
+    refreshScreen()
 }
+
 
 dotBtn.addEventListener("click", () => {
     const hasNoDot = !input.includes(".");
-    if (hasNoDot) {
-        if (input.length <= 0) {
-            getInput("0");
-        }
-        getInput(".");
+
+    if (hasNoDot || computed) {
+        input.length <= 0 || computed ? getInput("0.") : getInput(".")
     }
 })
 
@@ -52,10 +56,15 @@ zeroBtn.addEventListener("click", () => {
 })
 
 function getOperator(str) {
-    operator = str;
-    firstNumber = input;
-    input = "";
-    refreshScreen();
+    if (!computed && firstNumber.length <= 0) {
+        operator = str
+        firstNumber = input;
+        input = '';
+        refreshScreen()
+    } else if (input.length > 0) {
+        compute()
+        operator = str
+    }
 }
 
 function operate(operator) {
@@ -82,8 +91,9 @@ function operate(operator) {
 
 function compute() {
     if (!computed) {
-        displayOnScreen(operate(operator));
-        clear();
+        input = String(operate(operator))
+        displayOnScreen(input);
+        operator = "";
         computed = true;
     }
 }
