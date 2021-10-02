@@ -12,6 +12,7 @@
     font-size: xx-large;
     font-family: "Georgia", serif;
     overflow: auto; 
+    height:70px;
 }
 
 .max-wid{
