@@ -7,7 +7,7 @@
     margin-top: 15px;
     margin-bottom: 10px;
     border-style: solid;
-    border-color: darkgray;
+    border-color: rgb(211,211,211);
     text-align: right;
     font-size: xx-large;
     font-family: "Georgia", serif;
@@ -19,7 +19,22 @@
     width: 100%;
     padding-left: 0;
     padding-right: 0;
-    /* padding-top: 15px;
-    padding-bottom: 15px; */
+}
+
+.gray-case {
+    background-color: 	darkgray;
+    box-shadow: 2px 2px rgb(105,105,105)
+}
+
+.gray-btn {
+    background-color: rgb(211,211,211)
+}
+
+.blue-btn {
+    background-color: rgb(135,206,235)
+}
+
+.yellow-btn {
+    background-color: rgb(255,255,204)
 }
 
