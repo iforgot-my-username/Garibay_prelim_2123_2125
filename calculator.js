@@ -2,12 +2,14 @@ const pageLoaded = () => {
     const acBtn = document.querySelector("#clear-btn");
     const dotBtn = document.querySelector("#dot-btn");
     const helloBtn = document.querySelector("#hello-btn");
-    const byeBtn = document.querySelector("bye-btn");
+    const byeBtn = document.querySelector("#bye-btn");
     const zeroBtn = document.querySelector("#zero-btn");
     const equalBtn = document.querySelector("#equal-btn");
+    const screenElement = document.getElementById("screen");
 
 
     const displayRandomWord = () => {
+        screenElement.style.background = "white"
         const words = ["Hello", "Hi", "Yo", "Howdy", "Hey", "Ciao"];
         const randomIndex = Math.trunc(Math.random() * words.length);
         displayOnScreen(words[randomIndex]);
@@ -15,6 +17,24 @@ const pageLoaded = () => {
 
 
     helloBtn.onclick = displayRandomWord;
+
+    byeBtn.onclick = () => { fadeToBlack(0.1) }
+
+
+
+
+    const fadeToBlack = (opacity) => {
+        const screenFadeToBlack = () => {
+            screenElement.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`
+            fadeToBlack(opacity + 0.02)
+        }
+
+
+        if (opacity <= 0.9) {
+            setTimeout(screenFadeToBlack, 10)
+        }
+    }
+
 
 
     const numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
@@ -36,7 +56,7 @@ const pageLoaded = () => {
 
 
     function displayOnScreen(something) {
-        document.getElementById("screen").innerHTML = something;
+        screenElement.innerHTML = something;
     }
 
 
@@ -117,7 +137,7 @@ const pageLoaded = () => {
     }
 
     const compute = () => {
-        if (!computed) {
+        if (!computed && input.length > 0 && firstNumber.length > 0) {
             input = String(operate(operator))
             displayOnScreen(input);
             operator = "";
