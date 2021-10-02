@@ -18,32 +18,33 @@ const pageLoaded = () => {
 
     helloBtn.onclick = displayRandomWord;
 
-    byeBtn.onclick = () => { fadeToBlack(0.1) }
+    byeBtn.onclick = () => fadeToBlack(0.1);
 
 
 
 
     const fadeToBlack = (opacity) => {
         const screenFadeToBlack = () => {
-            screenElement.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`
-            fadeToBlack(opacity + 0.02)
+            screenElement.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
+            fadeToBlack(opacity + 0.02);
         }
 
 
         if (opacity <= 0.9) {
-            setTimeout(screenFadeToBlack, 10)
+            setTimeout(screenFadeToBlack, 10);
         }
     }
 
 
 
     const numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-    const operators = ["plus", "minus", "times", "divide"]
+    const operators = ["plus", "minus", "times", "divide"];
 
 
     const addOnclick = (button, dosomething) => {
-        const btn = document.querySelector(`#${button}-btn`)
-        btn.onclick = () => dosomething(btn.value)
+        const btn = document.querySelector(`#${button}-btn`);
+        const task = () => dosomething(btn.value);
+        btn.onclick = task;
     }
 
 
@@ -55,27 +56,26 @@ const pageLoaded = () => {
     let computed = false;
 
 
-    function displayOnScreen(something) {
-        screenElement.innerHTML = something;
-    }
+    const displayOnScreen = (something) => screenElement.innerHTML = something;
 
 
-    acBtn.addEventListener("click", () => {
+    const clear = () => {
         console.log("AC");
         displayOnScreen("0");
         input = "";
         operator = "";
         firstNumber = "";
         computed = false;
-    })
-
-
-    function refreshScreen() {
-        displayOnScreen(input);
     }
 
-    const getInput = (str) => {
 
+    acBtn.addEventListener("click", clear);
+
+
+    const refreshScreen = () => displayOnScreen(input);
+
+
+    const getInput = (str) => {
         if (computed && firstNumber.length > 0) {
             displayOnScreen("");
             firstNumber = operator.length <= 0 ? "" : input;
@@ -84,33 +84,38 @@ const pageLoaded = () => {
         } else {
             input += str;
         }
-        refreshScreen()
+        refreshScreen();
     }
 
-
-    dotBtn.addEventListener("click", () => {
+    const addDot = () => {
         const hasNoDot = !input.includes(".");
 
         if (hasNoDot || computed) {
-            input.length <= 0 || computed ? getInput("0.") : getInput(".")
+            input.length <= 0 || computed ? getInput("0.") : getInput(".");
         }
-    })
+    }
 
-    zeroBtn.addEventListener("click", () => {
+
+    dotBtn.addEventListener("click", addDot);
+
+
+    addZero = () => {
         if (input.length > 0) {
             getInput("0");
-        };
-    })
+        }
+    }
+
+    zeroBtn.addEventListener("click", addZero);
 
     const getOperator = (str) => {
         if (!computed && firstNumber.length <= 0) {
             operator = str
             firstNumber = input;
             input = '';
-            refreshScreen()
+            refreshScreen();
         } else if (input.length > 0) {
-            compute()
-            operator = str
+            compute();
+            operator = str;
         }
     }
 
@@ -148,16 +153,11 @@ const pageLoaded = () => {
     equalBtn.addEventListener("click", compute)
 
 
-    const numbersOnclick = (button) => addOnclick(button, getInput)
-    const operatorsOnclick = (button) => addOnclick(button, getOperator)
+    const numbersOnclick = (button) => addOnclick(button, getInput);
+    const operatorsOnclick = (button) => addOnclick(button, getOperator);
 
-    numbers.forEach(numbersOnclick)
-    operators.forEach(operatorsOnclick)
+    numbers.forEach(numbersOnclick);
+    operators.forEach(operatorsOnclick);
 }
 
 pageLoaded();
-
-
-
-
-
