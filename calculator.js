@@ -15,35 +15,32 @@ const pageLoaded = () => {
         displayOnScreen(words[randomIndex]);
     }
 
-
     helloBtn.onclick = displayRandomWord;
-
-    byeBtn.onclick = () => { fadeToBlack(0.1) }
-
 
 
 
     const fadeToBlack = (opacity) => {
         const screenFadeToBlack = () => {
-            screenElement.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`
-            fadeToBlack(opacity + 0.02)
+            screenElement.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
+            fadeToBlack(opacity + 0.02);
         }
-
 
         if (opacity <= 0.9) {
-            setTimeout(screenFadeToBlack, 10)
+            setTimeout(screenFadeToBlack, 10);
         }
     }
+
+    byeBtn.onclick = () => fadeToBlack(0.1);
 
 
 
     const numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-    const operators = ["plus", "minus", "times", "divide"]
-
+    const operators = ["plus", "minus", "times", "divide"];
 
     const addOnclick = (button, dosomething) => {
-        const btn = document.querySelector(`#${button}-btn`)
-        btn.onclick = () => dosomething(btn.value)
+        const btn = document.querySelector(`#${button}-btn`);
+        const task = () => dosomething(btn.value);
+        btn.onclick = task;
     }
 
 
@@ -54,63 +51,68 @@ const pageLoaded = () => {
     let firstNumber = "";
     let computed = false;
 
+    const isEmpty = (str) => str.length <= 0;
+    const isNotEmpty = (str) => !isEmpty(str);
+    const displayOnScreen = (something) => screenElement.innerHTML = something;
 
-    function displayOnScreen(something) {
-        screenElement.innerHTML = something;
-    }
 
-
-    acBtn.addEventListener("click", () => {
+    const clear = () => {
         console.log("AC");
         displayOnScreen("0");
         input = "";
         operator = "";
         firstNumber = "";
         computed = false;
-    })
-
-
-    function refreshScreen() {
-        displayOnScreen(input);
     }
 
-    const getInput = (str) => {
 
-        if (computed && firstNumber.length > 0) {
+    acBtn.addEventListener("click", clear);
+
+
+    const refreshScreen = () => displayOnScreen(input);
+
+
+    const getInput = (str) => {
+        if (computed && isNotEmpty(firstNumber)) {
             displayOnScreen("");
-            firstNumber = operator.length <= 0 ? "" : input;
+            firstNumber = isEmpty(operator) ? "" : input;
             computed = false;
             input = str;
         } else {
             input += str;
         }
-        refreshScreen()
+        refreshScreen();
     }
 
-
-    dotBtn.addEventListener("click", () => {
+    const addDot = () => {
         const hasNoDot = !input.includes(".");
 
         if (hasNoDot || computed) {
-            input.length <= 0 || computed ? getInput("0.") : getInput(".")
+            isEmpty(input) || computed ? getInput("0.") : getInput(".");
         }
-    })
+    }
 
-    zeroBtn.addEventListener("click", () => {
-        if (input.length > 0) {
+
+    dotBtn.addEventListener("click", addDot);
+
+
+    addZero = () => {
+        if (isNotEmpty(input)) {
             getInput("0");
-        };
-    })
+        }
+    }
+
+    zeroBtn.addEventListener("click", addZero);
 
     const getOperator = (str) => {
-        if (!computed && firstNumber.length <= 0) {
+        if (!computed && isEmpty(firstNumber)) {
             operator = str
             firstNumber = input;
             input = '';
-            refreshScreen()
-        } else if (input.length > 0) {
-            compute()
-            operator = str
+            refreshScreen();
+        } else if (isNotEmpty(input)) {
+            compute();
+            operator = str;
         }
     }
 
@@ -119,11 +121,8 @@ const pageLoaded = () => {
         const b = Number(input);
 
         const add = () => a + b;
-
         const subtract = () => a - b;
-
         const divide = () => a / b;
-
         const multiply = () => a * b
 
         const operation = {
@@ -137,7 +136,7 @@ const pageLoaded = () => {
     }
 
     const compute = () => {
-        if (!computed && input.length > 0 && firstNumber.length > 0) {
+        if (!computed && isNotEmpty(input) && isNotEmpty(firstNumber)) {
             input = String(operate(operator))
             displayOnScreen(input);
             operator = "";
@@ -148,16 +147,11 @@ const pageLoaded = () => {
     equalBtn.addEventListener("click", compute)
 
 
-    const numbersOnclick = (button) => addOnclick(button, getInput)
-    const operatorsOnclick = (button) => addOnclick(button, getOperator)
+    const numbersOnclick = (button) => addOnclick(button, getInput);
+    const operatorsOnclick = (button) => addOnclick(button, getOperator);
 
-    numbers.forEach(numbersOnclick)
-    operators.forEach(operatorsOnclick)
+    numbers.forEach(numbersOnclick);
+    operators.forEach(operatorsOnclick);
 }
 
 pageLoaded();
-
-
-
-
-
