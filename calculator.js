@@ -96,7 +96,7 @@ const pageLoaded = () => {
     dotBtn.addEventListener("click", addDot);
 
 
-    addZero = () => {
+    const addZero = () => {
         if (isNotEmpty(input)) {
             getInput("0");
         }
@@ -106,7 +106,7 @@ const pageLoaded = () => {
 
     const getOperator = (str) => {
         if (!computed && isEmpty(firstNumber)) {
-            operator = str
+            operator = str;
             firstNumber = input;
             input = '';
             refreshScreen();
@@ -123,7 +123,7 @@ const pageLoaded = () => {
         const add = () => a + b;
         const subtract = () => a - b;
         const divide = () => a / b;
-        const multiply = () => a * b
+        const multiply = () => a * b;
 
         const operation = {
             '+': add,
@@ -137,14 +137,14 @@ const pageLoaded = () => {
 
     const compute = () => {
         if (!computed && isNotEmpty(input) && isNotEmpty(firstNumber)) {
-            input = String(operate(operator))
+            input = String(operate(operator));
             displayOnScreen(input);
             operator = "";
             computed = true;
         }
     }
 
-    equalBtn.addEventListener("click", compute)
+    equalBtn.addEventListener("click", compute);
 
 
     const numbersOnclick = (button) => addOnclick(button, getInput);
